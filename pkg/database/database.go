@@ -15,7 +15,7 @@ func MySqlInitialize(host, username, password, database, port string) (SqlDataba
 	db := SqlDatabase{}
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", username, password, host, port, database)
-
+	// log.Println("dsn:", dsn)
 	conn, err := sqlx.Open("mysql", dsn)
 	if err != nil {
 		return db, err

@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 type Middleware struct {
@@ -19,4 +20,10 @@ func (m *Middleware) CORS(next echo.HandlerFunc) echo.HandlerFunc {
 		c.Response().Header().Set("Content-Type", "application/json")
 		return next(c)
 	}
+}
+
+func (m Middleware) LogMiddleware(e *echo.Echo) {
+	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: "method=${method}, uri=${uri}, status=${status}, ip=${remote_ip}, latency=${latency_human}\n",
+	}))
 }

@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/AdiKhoironHasan/privy-cake-store/internal/services"
+	"github.com/AdiKhoironHasan/privy-cake-store/internal/transport/http/middleware"
 	servConst "github.com/AdiKhoironHasan/privy-cake-store/pkg/common/const"
 	"github.com/AdiKhoironHasan/privy-cake-store/pkg/dto"
 	servErrors "github.com/AdiKhoironHasan/privy-cake-store/pkg/errors"
@@ -22,6 +23,7 @@ func NewHttpHandler(e *echo.Echo, srv services.Services) {
 	handler := &HttpHandler{
 		srv,
 	}
+	middleware.NewMidleware().LogMiddleware(e)
 	e.GET("/ping", handler.Ping)
 	e.POST("/cakes", handler.AddNewCake)
 	e.GET("/cakes", handler.ShowAllCake)

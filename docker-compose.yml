@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  database:
+    image: mysql:8
+    container_name: db-mysql
+    restart: always
+    environment:
+      # - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      # - MYSQL_USER=root
+      # - MYSQL_HOST=database
+      # - MYSQL_PORT=3306
+      # - MYSQL_PASSWORD=
+      # - MYSQL_DBNAME=privy_cake-store
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 33066:3306
+    expose:
+      - 3306
+    volumes:
+      - ./database/database.sql:/data/application/init.sql
+    command: --init-file /data/application/init.sql
+    networks:
+      - my-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-privy
+    depends_on:
+      - database
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+    networks:
+      - my-network
+
+  migrate:
+    image: migrate/migrate
+    container_name: db-migration
+    networks:
+      - my-network
+    volumes:
+      - ./pkg/database/migrations:/database
+    command:
+      [
+        "-path",
+        "/database",
+        "-database",
+        "mysql://root:root@tcp(database:3306)/privy",
+        "up",
+      ]
+    restart: on-failure
+    # healthcheck:
+    #   test: "exit 0"
+    links:
+      - database
+    depends_on:
+      - database
+
+networks:
+  my-network:

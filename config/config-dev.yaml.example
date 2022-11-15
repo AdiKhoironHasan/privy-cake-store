@@ -1,4 +1,4 @@
-appName: cake-store-service
+appName: privy-cake-store
 
 server:
   port: "8000"
@@ -6,13 +6,8 @@ server:
 
 db:
   mysql:
-    host: 127.0.0.1
+    host: 127.0.0.1 / containerdb_name(docker)
     port: 3306
-    dbname: articles
+    dbname: cake_store
     user: root
     password: root
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    user: alice
-    password: alice
