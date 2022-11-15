@@ -48,8 +48,8 @@ You can run service in docker with this command:
 
 # How to use service
 You can deploy a service with consumption to an already created API endpoint, you can use the postman tool. To make it easier to use, I've created a workspace for it, and it's ready to go. don't forget to use postman with desktop agent if the service is running on lokalhost.
-## Postman Link: 
-- ```https://www.postman.com/lively-comet-875863/workspace/privy-cake-store/collection/18402968-dd5be257-5653-44e8-b21a-202e76fab65c?action=share&creator=18402968```
+## Postman Link:\
+https://www.postman.com/lively-comet-875863/workspace/privy-cake-store/collection/18402968-dd5be257-5653-44e8-b21a-202e76fab65c?action=share&creator=18402968
 
 # How to run unit test
 This step to run unit test:
